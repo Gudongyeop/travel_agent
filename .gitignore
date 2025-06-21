@@ -1,0 +1,8 @@
+.env
+.venv/
+
+# Google Calendar API 인증 파일
+credentials.json
+__pycache__/
+token.json
+.DS_Store

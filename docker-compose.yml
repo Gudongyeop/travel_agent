@@ -1,0 +1,61 @@
+services:
+  # MongoDB 데이터베이스
+  mongodb:
+    image: mongo:7.0
+    container_name: travel_planner_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: travel_planner
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - travel_planner_network
+
+  # Backend API 서버
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: travel_planner_backend
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    networks:
+      - travel_planner_network
+    volumes:
+      - ./backend:/app/backend
+    working_dir: /app/backend
+
+  # Frontend Streamlit 앱
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: travel_planner_frontend
+    restart: always
+    ports:
+      - "8501:8501"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - travel_planner_network
+    volumes:
+      - ./frontend:/app/frontend
+    working_dir: /app/frontend
+
+volumes:
+  mongodb_data:
+
+networks:
+  travel_planner_network:
+    driver: bridge
