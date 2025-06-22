@@ -205,6 +205,6 @@ docker-compose up --build
 
 ## 🙏 참고 자료
 
-이 프로젝트는 [langmanus](https://github.com/Darwin-lfl/langmanus) 오픈소스 프로젝트를 참고하여 개발되었습니다. LangGraph 기반의 다중 에이전트 시스템 구현에 대한 영감과 아키텍처 패턴을 제공받았습니다.
+이 프로젝트는 [langmanus](https://github.com/Darwin-lfl/langmanus) 오픈소스 프로젝트를 참고하여 개발되었습니다. LangGraph 기반의 다중 에이전트 시스템 구현에 참고하였습니다.
 
 
